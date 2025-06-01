@@ -1,6 +1,7 @@
 import React from 'react';
 import Cover from '../../Shared/Cover/Cover';
 import MenuItem from '../../Shared/MenuItem/MenuItem';
+import { Link } from 'react-router-dom';
 
 const FeaturedMenu = ({img, title, subTitle, item}) => {
     return (
@@ -15,7 +16,10 @@ const FeaturedMenu = ({img, title, subTitle, item}) => {
                 }
             </div>
             <div className='text-center'>
-                <button className="btn btn-neutral btn-outline text-black border-0 border-b-4 mt-4 rounded-xl hover:text-white uppercase text-xl p-6">Order Your Favorite Food</button>
+                <Link to={`/shop/${title}`}>
+                    <button className="btn btn-neutral btn-outline text-black border-0 border-b-4 mt-4 rounded-xl hover:text-white uppercase text-xl p-6">Order Your Favorite Food</button>
+                </Link>
+                
             </div>
         </div>
         

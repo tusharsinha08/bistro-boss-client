@@ -1,13 +1,17 @@
 import React from 'react';
 
-const CartMenu = ({ img, name, recipe }) => {
+const CartMenu = ({ item }) => {
+    const { name, recipe, image, price } = item
     return (
         <div>
-            <div className="card bg-gray-100 shadow-sm rounded-xl">
+            <div className="card bg-gray-100 shadow-sm rounded-xl h-full shadow-yellow-700">
                 <figure>
-                    <img
-                        src={img}
-                        alt="Shoes" />
+                    <div className='relative'>
+                        <p className='absolute bg-black text-white p-2 rounded-md top-2 right-2'>${price}</p>
+                        <img
+                            src={image}
+                            alt="Shoes" />
+                    </div>
                 </figure>
                 <div className="card-body">
                     <h2 className="card-title">{name}</h2>
