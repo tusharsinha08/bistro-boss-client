@@ -1,14 +1,21 @@
 import coverLogin from '../../assets/others/authentication2.png'
 import bgLogin from '../../assets/others/authentication.png'
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../providers/AuthProvider';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Swal from 'sweetalert2';
+import useHelmet from '../../hooks/useHelmet';
 
 
 const Login = () => {
+    const helmet = useHelmet('Login')
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state?.from?.pathname || '/';
+    
+    
     const { signInUser } = useContext(AuthContext)
 
     const [disabled, setDisabled] = useState(true)
@@ -19,25 +26,19 @@ const Login = () => {
         const email = form.email.value
         const password = form.password.value
 
-        // console.log(email, password);
-        // signInUser(email, password)
-        // .then((result) => {
-        //     const user = result.user;
-        //     Swal.fire("SweetAlert2 is working!");
+        signInUser(email, password)
+        .then((result) => {
+            const user = result.user;
 
-        //     console.log(user);
-
-
-        // });
-        try {
-            const result = signInUser(email, password);
-            
-
-            Swal.fire("Login Successful!");
-        } catch (err) {
-            console.error(err);
-            Swal.fire("Login Failed", err.message, "error");
-        }
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "User Login successful",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            navigate(from, {replace: true})
+        })
     }
 
     useEffect(() => {
@@ -46,7 +47,7 @@ const Login = () => {
 
     const handleValidateCaptcha = (e) => {
         const user_captcha_value = e.target.value;
-        console.log(user_captcha_value);
+        
         if (validateCaptcha(user_captcha_value)) {
             setDisabled(false)
         }
@@ -57,9 +58,7 @@ const Login = () => {
 
     return (
         <div>
-            <Helmet>
-                <title>Bistro Boss | Login</title>
-            </Helmet>
+            {helmet}
             <div className="hero min-h-screen relative"
                 style={{
                     backgroundImage:
@@ -78,7 +77,7 @@ const Login = () => {
                     </div>
                     <form onSubmit={handleLogin} className="card w-full max-w-sm shrink-0">
                         <div className="card-body">
-                            <h2 className='text-center text-4xl font-bold'>Login</h2>
+                            <h2 className='text-center text-4xl font-bold text-yellow-400'>Login</h2>
                             <fieldset className="fieldset">
                                 <label className="label">Email</label>
                                 <input type="email" name='email' className="input" placeholder="email@example.com" />
@@ -104,10 +103,11 @@ const Login = () => {
                                     </button> */}
                                 </div>
 
+                                {/* todo: disabled true for recaptcha */}
 
-                                <input disabled={disabled} className="btn btn-neutral btn-outline  border-1 rounded-xl uppercase text-xl mr-4" type="submit" value={"Login"} />
+                                <input disabled={false} className="btn btn-neutral btn-outline  border rounded-xl uppercase text-xl mr-4" type="submit" value={"Login"} />
 
-                                <p className=' text-lg'>New here? Please <Link to={"/signup"}><span className='font-semibold'>Sign Up.</span></Link></p>
+                                <p className='text-lg text-yellow-400'>New here? Please <Link to={"/signup"}><span className='font-semibold'>Sign Up.</span></Link></p>
 
                             </fieldset>
                         </div>
