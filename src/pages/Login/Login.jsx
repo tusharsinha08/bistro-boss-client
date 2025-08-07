@@ -7,6 +7,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Swal from 'sweetalert2';
 import useHelmet from '../../hooks/useHelmet';
+import SocialLogin from '../../components/SocialLogin/SocialLogin';
 
 
 const Login = () => {
@@ -108,7 +109,8 @@ const Login = () => {
                                 <input disabled={false} className="btn btn-neutral btn-outline  border rounded-xl uppercase text-xl mr-4" type="submit" value={"Login"} />
 
                                 <p className='text-lg text-yellow-400'>New here? Please <Link to={"/signup"}><span className='font-semibold'>Sign Up.</span></Link></p>
-
+                                
+                                <SocialLogin></SocialLogin>
                             </fieldset>
                         </div>
                     </form>

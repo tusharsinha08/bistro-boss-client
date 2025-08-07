@@ -10,7 +10,7 @@ const Cart = () => {
     const totalPrice = cart.reduce((total, item) => total + item.price, 0).toFixed(2)
     const axiosSecure = useAxiosSecure()
 
-    const handleDelete = (id) => {
+    const handleDeleteItem = (id) => {
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -83,7 +83,7 @@ const Cart = () => {
                                             <td>${item.price}</td>
                                             <th>
                                                 <button
-                                                    onClick={() => handleDelete(item._id)}
+                                                    onClick={() => handleDeleteItem(item._id)}
                                                     className='text-4xl text-red-600'>
                                                     <MdDeleteForever></MdDeleteForever>
                                                 </button>
