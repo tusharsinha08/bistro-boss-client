@@ -50,12 +50,12 @@ const Dashboard = () => {
                                 </li>
                                 <li>
                                     <NavLink
-                                        to="/dashboard/manageList"
+                                        to="/dashboard/manageItems"
                                         className={({ isActive }) =>
                                             `${baseLinkClasses} ${isActive ? activeClasses : inactiveClasses}`
                                         }
                                     >
-                                        <FaList></FaList> Manage List
+                                        <FaList></FaList> Manage Items
                                     </NavLink>
                                 </li>
                                 <li>

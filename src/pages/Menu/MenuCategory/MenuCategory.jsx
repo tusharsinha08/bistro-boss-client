@@ -49,7 +49,7 @@ const MenuCategory = () => {
                 img={bgSalad}
                 title={"salad"}
                 subTitle={"Fresh, crisp, and bursting with flavor — our salads are a celebration of health and taste."}
-                item={desserts}
+                item={salads}
             ></FeaturedMenu>
             <FeaturedMenu
                 img={bgSoup}
