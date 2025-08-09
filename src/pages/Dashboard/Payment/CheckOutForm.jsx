@@ -70,6 +70,19 @@ const CheckOutForm = () => {
             console.log('payment intent: ', paymentIntent)
             if(paymentIntent.status === 'succeeded') {
                 setTransactionId(paymentIntent.id)
+
+                const payment = {
+                    email: user.email,
+                    price: totalPrice,
+                    date: new Date(), // utc date convert. use moment js
+                    cartIds: cart.map(item => item._id),
+                    menuIds: cart.map(item => item.menuId),
+                    status: 'pending',
+                    transactionId: paymentIntent.id
+                }
+
+                const res = await axiosSecure.post('/payments', payment)
+                console.log("payment saved", res.data)
             }
         }
     }
