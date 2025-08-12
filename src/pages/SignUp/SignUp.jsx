@@ -27,7 +27,7 @@ const SignUp = () => {
         createUser(data.email, data.password)
             .then(result => {
                 const loggedUser = result.user;
-                console.log(loggedUser);
+                // // console.log(loggedUser);
                 updateUserProfile(data.name, data.photoURL)
                     .then(() => {
                         const userInfo = {
@@ -49,7 +49,7 @@ const SignUp = () => {
                                 }
                             })
                     })
-                    .catch(error => console.log(error))
+                    .catch(error =>  console.log(error))
             })
 
 
@@ -103,7 +103,7 @@ const SignUp = () => {
                                 <input className="btn btn-neutral btn-outline border-1 rounded-xl  uppercase text-xl mt-4 mr-4" type="submit" value={"Sign Up"} />
 
                                 <p className='text-yellow-400 text-lg'>Already have an account? Please <Link to={"/login"}><span className='font-semibold'>Login.</span></Link></p>
-                                
+
                                 <SocialLogin></SocialLogin>
                             </fieldset>
                         </div>

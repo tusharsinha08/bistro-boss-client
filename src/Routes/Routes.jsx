@@ -74,7 +74,7 @@ export const router = createBrowserRouter([
                 element: <PaymentHistory></PaymentHistory>
             },
 
-            
+
             // Admin only routes-------------
             {
                 path: 'adminHome',
@@ -91,7 +91,7 @@ export const router = createBrowserRouter([
             {
                 path: 'updateItem/:id',
                 element: <AdminRoutes><UpdateItem></UpdateItem></AdminRoutes>,
-                loader : ({ params }) => fetch(`http://localhost:5000/menu/${params.id}`)
+                loader: ({ params }) => fetch(`https://bistro-boss-server-liard-theta.vercel.app/menu/${params.id}`)
             },
             {
                 path: 'manageBooking',

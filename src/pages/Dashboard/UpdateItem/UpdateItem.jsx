@@ -10,45 +10,45 @@ const image_hosting_key = import.meta.env.VITE_IMAGE_API_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
 
 const UpdateItem = () => {
-    const {name, category, price, recipe, _id, image} = useLoaderData()
-    
+    const { name, category, price, recipe, _id, image } = useLoaderData()
+
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const axiosPublic = useAxiosPublic()
     const axiosSecure = useAxiosSecure()
 
     const onSubmit = async (data) => {
-            console.log("Form Data Submitted:", data);
-    
-            const imageFile = { image: data.image[0] }
-            const res = await axiosPublic.post(image_hosting_api, imageFile, {
-                headers: {
-                    'content-type': 'multipart/form-data'
-                }
-            })
-            console.log(res.data);
-            if (res.data.success) {
-                const menuItem = {
-                    name: data.name,
-                    recipe: data.recipe,
-                    image: res.data.data.display_url,
-                    category: data.category.toLowerCase(),
-                    price: data.price
-                }
-                const menuRes = await axiosSecure.patch(`/menu/${_id}`, menuItem)
-                console.log(menuRes.data);
-                if (menuRes.data.modifiedCount) {
-                    reset()
-                    // show success pop-up
-                    Swal.fire({
-                        position: "top-end",
-                        icon: "success",
-                        title: `${menuItem.name} Updated successfully`,
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                }
+        // console.log("Form Data Submitted:", data);
+
+        const imageFile = { image: data.image[0] }
+        const res = await axiosPublic.post(image_hosting_api, imageFile, {
+            headers: {
+                'content-type': 'multipart/form-data'
             }
-        };
+        })
+        // console.log(res.data);
+        if (res.data.success) {
+            const menuItem = {
+                name: data.name,
+                recipe: data.recipe,
+                image: res.data.data.display_url,
+                category: data.category.toLowerCase(),
+                price: data.price
+            }
+            const menuRes = await axiosSecure.patch(`/menu/${_id}`, menuItem)
+            // console.log(menuRes.data);
+            if (menuRes.data.modifiedCount) {
+                reset()
+                // show success pop-up
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: `${menuItem.name} Updated successfully`,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        }
+    };
 
     return (
         <div className="w-full min-h-screen bg-white  items-center  p-4">

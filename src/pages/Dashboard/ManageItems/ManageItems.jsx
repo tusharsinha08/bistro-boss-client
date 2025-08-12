@@ -10,11 +10,11 @@ import { Link } from 'react-router-dom';
 const ManageItems = () => {
     const [menu, refetch] = useMenu()
     const axiosSecure = useAxiosSecure()
-    console.log(menu);
-    
+    // console.log(menu);
+
 
     const handleDeleteItem = item => {
-        console.log("item", item);
+        // console.log("item", item);
 
         Swal.fire({
             title: "Are you sure?",

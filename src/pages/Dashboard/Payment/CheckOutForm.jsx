@@ -22,7 +22,7 @@ const CheckOutForm = () => {
     useEffect(() => {
         axiosSecure.post('/create-payment-intent', { price: totalPrice })
             .then(res => {
-                // console.log(res.data.clientSecret);
+                // // console.log(res.data.clientSecret);
                 setClientSecret(res.data.clientSecret)
             })
     })
@@ -46,11 +46,11 @@ const CheckOutForm = () => {
         })
 
         if (error) {
-            console.log("error", error)
+            // console.log("error", error)
             setError(error.message)
         }
         else {
-            console.log("payment Method", paymentMethod)
+            // console.log("payment Method", paymentMethod)
             setError('')
         }
 
@@ -67,10 +67,10 @@ const CheckOutForm = () => {
         })
 
         if (confirmError) {
-            console.log("confirm error: ", confirmError);
+            // console.log("confirm error: ", confirmError);
         }
         else {
-            console.log('payment intent: ', paymentIntent)
+            // console.log('payment intent: ', paymentIntent)
             if (paymentIntent.status === 'succeeded') {
                 setTransactionId(paymentIntent.id)
 
@@ -85,7 +85,7 @@ const CheckOutForm = () => {
                 }
 
                 const res = await axiosSecure.post('/payments', payment)
-                console.log("payment saved", res.data)
+                // console.log("payment saved", res.data)
                 if (res.data.paymentResult.insertedId) {
                     Swal.fire({
                         position: "top-end",

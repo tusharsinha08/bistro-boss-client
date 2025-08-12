@@ -14,7 +14,7 @@ const AddItems = () => {
     const axiosPublic = useAxiosPublic()
     const axiosSecure = useAxiosSecure()
     const onSubmit = async (data) => {
-        console.log("Form Data Submitted:", data);
+        // console.log("Form Data Submitted:", data);
 
         const imageFile = { image: data.image[0] }
         const res = await axiosPublic.post(image_hosting_api, imageFile, {
@@ -22,7 +22,7 @@ const AddItems = () => {
                 'content-type': 'multipart/form-data'
             }
         })
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data.success) {
             const menuItem = {
                 name: data.name,
@@ -32,7 +32,7 @@ const AddItems = () => {
                 price: data.price
             }
             const menuRes = await axiosSecure.post('/menu', menuItem)
-            console.log(menuRes.data);
+            // console.log(menuRes.data);
             if (menuRes.data.insertedId) {
                 reset()
                 // show success pop-up

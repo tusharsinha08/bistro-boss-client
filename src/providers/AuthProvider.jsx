@@ -47,18 +47,20 @@ const AuthProvider = ({ children }) => {
             setUser(currentUser)
             if (currentUser) {
                 // get token and get client
-                const userInfo = { email: currentUser.email }
+                const userInfo = { email: currentUser?.email }
                 axiosPublic.post('/jwt', userInfo)
                     .then(res => {
                         if (res.data.token) {
                             localStorage.setItem('access-token', res.data.token)
+                            setLoading(false)
                         }
                     })
             } else {
                 // todo: remove token (if stored on client side: localStorage, inMemory)
                 localStorage.removeItem('access-token')
+                setLoading(false)
             }
-            setLoading(false)
+            
         })
         return (() => {
             return unsubscribe()

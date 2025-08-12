@@ -9,14 +9,14 @@ const Navbar = () => {
     const { user, logOutUser } = useContext(AuthContext)
     const [cart] = useCart()
     const [isAdmin] = useAdmin()
-    console.log(user);
+    // console.log(user);
 
     const handleLogOut = () => {
         logOutUser()
             .then(() => { })
             .catch(error => console.log(error))
     }
-    console.log("user", user);
+    // console.log("user", user);
 
     const navOptions = <>
         <li className='hover:text-white'><Link to='/'>Home</Link></li>
