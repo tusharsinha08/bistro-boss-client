@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import useCart from '../../../hooks/useCart';
 import useAuth from '../../../hooks/useAuth';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const CheckOutForm = () => {
 
@@ -14,6 +16,7 @@ const CheckOutForm = () => {
     const axiosSecure = useAxiosSecure()
     const [cart] = useCart()
     const { user } = useAuth()
+    const navigate = useNavigate()
     const totalPrice = cart.reduce((total, item) => total + item.price, 0)
 
     useEffect(() => {
@@ -60,15 +63,15 @@ const CheckOutForm = () => {
                     name: user?.displayName || 'anonymous'
                 }
             }
-            
+
         })
 
-        if(confirmError){
+        if (confirmError) {
             console.log("confirm error: ", confirmError);
         }
         else {
             console.log('payment intent: ', paymentIntent)
-            if(paymentIntent.status === 'succeeded') {
+            if (paymentIntent.status === 'succeeded') {
                 setTransactionId(paymentIntent.id)
 
                 const payment = {
@@ -83,6 +86,16 @@ const CheckOutForm = () => {
 
                 const res = await axiosSecure.post('/payments', payment)
                 console.log("payment saved", res.data)
+                if (res.data.paymentResult.insertedId) {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Successfully paid",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    navigate('/dashboard/paymentHistory')
+                }
             }
         }
     }
